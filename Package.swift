@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "DogBreedsComponent",
-    platforms: [.iOS(.v14)],
+    platforms: [.iOS(.v14), .macOS(.v10_15)],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
@@ -29,9 +29,17 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "DogBreedsComponent",
-            dependencies: []),
+            dependencies: [
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+                .product(name: "Kingfisher", package: "Kingfisher")
+            ]
+        ),
         .testTarget(
             name: "DogBreedsComponentTests",
-            dependencies: ["DogBreedsComponent"]),
+            dependencies: [
+                "DogBreedsComponent",
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+            ]
+        ),
     ]
 )
